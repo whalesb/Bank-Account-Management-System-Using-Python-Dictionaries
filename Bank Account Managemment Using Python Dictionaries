@@ -1,0 +1,70 @@
+# Initialize an empty dictionary to store user bank details
+Bank_database = dict()
+
+# Function to add a new user to the Bank database
+def Add_newuser():
+    while True:
+        # Collect user details from input
+        username = input("Username: ")
+        account_name = input("Enter Account Name: ")
+        account_number = int(input("Enter Account Number: "))
+        balance = float(input("Enter Account Balance Amount: "))
+        pin = int(input("Security Pin: "))
+
+        # Create a dictionary for each user with their details
+        user = dict()
+        user['account_name'] = account_name
+        user['account_number'] = account_number
+        user['balance'] = balance
+        user['pin'] = pin
+
+        # Add the new user's details to the main Bank database with the username as key
+        Bank_database[f'{username}'] = user
+        # Display all items in the database
+        print(Bank_database.items())
+
+        # Check if user wants to add more users
+        res = input("Do you want to continue: (y) Yes, (n) No")
+        if res.lower() == 'y':
+            continue  # Continue to add another user if response is 'y'
+        else:
+            break  # Exit the loop if response is not 'y'
+
+# Function to view all users in the Bank database
+def view_database():
+    # Iterate through each user in the database
+    for key, value in Bank_database.items():
+        print("Username:", key)  # Display the username
+        # Iterate through each detail for the user
+        for x, y in value.items():
+            print({x: y})  # Print each detail as a dictionary
+
+# Function to withdraw money from a user's account
+def withdraw(username):
+    user = Bank_database[username]  # Retrieve user data from the database using username
+    userpin = int(input("Enter your pin: "))  # Ask for the user's pin for security
+    if userpin == user['pin']:  # Check if the entered pin matches the user's pin
+        balance = user['balance']  # Get the current balance
+        amount = int(input('How much do you want to withdraw'))  # Amount to withdraw
+        if amount > balance:
+            print('Insufficient funds')  # Display if balance is insufficient
+        else:
+            balance = balance - amount  # Deduct the withdrawal amount from balance
+            print("Your balance is:", balance)  # Show updated balance
+            user['balance'] = balance  # Update the user's balance in the database
+            print(user)  # Display updated user data
+    else:
+        print("Pin Incorrect")  # Display error if pin does not match
+
+# Function to deposit money to a user's account
+def deposit(username):
+    user = Bank_database[username]  # Retrieve user data from the database using username
+    userpin = int(input("Enter your pin: "))  # Ask for the user's pin for security
+    if userpin == user['pin']:  # Check if the entered pin matches the user's pin
+        balance = user["balance"]  # Get the current balance
+        amount = int(input('How much do you want to deposit'))  # Amount to deposit
+        balance = balance + amount  # Add the deposit amount to balance
+        user["balance"] = balance  # Update the user's balance in the database
+        print(user)  # Display updated user data
+    else:
+        print('Incorrect pin, please try again')  # Display error if pin does not match
