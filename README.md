@@ -1,0 +1,2 @@
+# Bank-Account-Management-System-Using-Python-Dictionaries
+Bank Account Management System Using Dictionaries" is a Python project that uses dictionaries to manage bank account data. It includes functions to add users, view accounts, and perform secure transactions like deposits and withdrawals. User details—account name, number, balance, and PIN—are stored securely with PIN verification for safety
